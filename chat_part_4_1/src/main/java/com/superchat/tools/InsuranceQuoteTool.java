@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 @Slf4j
 public class InsuranceQuoteTool {
     @Tool("Calculate the price (premium) of a specific insurance product")
-    public String buscarPrecioSeguro(@P("Product ID") String productId,
-                                     @P("Client's Name") String name,
-                                     @P("Client's Age") Integer age,
-                                     @P("CLient's marital status") String maritalStatus){
+    public String generateQuote(@P("Product ID") String productId,
+                                @P("Client's Name") String name,
+                                @P("Client's Age") Integer age,
+                                @P("CLient's marital status") String maritalStatus){
 
         log.info("Calculate the insurance premium: " + name);
         int safeAge = (age==null || age<0) ? 0 : age;
