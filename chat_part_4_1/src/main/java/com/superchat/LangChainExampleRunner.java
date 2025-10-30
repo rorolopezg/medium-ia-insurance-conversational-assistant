@@ -49,7 +49,8 @@ public class LangChainExampleRunner implements CommandLineRunner {
         String contextForAgent = "";
 
         // Step 1 - Setup: Build the models and the store:
-        final ProductRecommendationResult productRecommendationResult = iaBuilderService.createAgenteChatRecomendador();
+        final ProductRecommendationResult productRecommendationResult = iaBuilderService.createChatRecommenderAgent();
+
         final EmbeddingModel embeddingModel = productRecommendationResult.getEmbeddingModel();
         final EmbeddingStore<TextSegment> embeddingStore = productRecommendationResult.getEmbeddingStore();
         final IProfileExtractionAgent profileExtractionAgent = productRecommendationResult.getProfileExtractionAgent();

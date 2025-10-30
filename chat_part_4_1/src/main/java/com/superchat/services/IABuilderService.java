@@ -34,7 +34,7 @@ public final class IABuilderService {
                 .build();
     }
 
-    public ProductRecommendationResult createAgenteChatRecomendador() {
+    public ProductRecommendationResult createChatRecommenderAgent() {
         ProductRecommendationResult result = new ProductRecommendationResult();
 
         EmbeddingModel embeddingModel = OpenAiEmbeddingModel.builder()
