@@ -50,10 +50,10 @@ public class LangChainExampleRunner implements CommandLineRunner {
 
         // Step 1 - Setup: Build the models and the store:
         final ProductRecommendationResult productRecommendationResult = iaBuilderService.createAgenteChatRecomendador();
-        final IProfileExtractionAgent profileExtractionAgent = productRecommendationResult.getProfileExtractionAgent();
-        final IChatAgentA chatAgentA = productRecommendationResult.getChatAgentA();
         final EmbeddingModel embeddingModel = productRecommendationResult.getEmbeddingModel();
         final EmbeddingStore<TextSegment> embeddingStore = productRecommendationResult.getEmbeddingStore();
+        final IProfileExtractionAgent profileExtractionAgent = productRecommendationResult.getProfileExtractionAgent();
+        final IChatAgentA chatAgentA = productRecommendationResult.getChatAgentA();
 
         // Step 2 - Manage Products
         // 2.1. Get the insurance products:
