@@ -4,3 +4,8 @@ CREATE TABLE IF NOT EXISTS medium.product_embeddings (
     text TEXT,
     metadata JSONB
 );
+
+CREATE INDEX IF NOT EXISTS idx_product_embeddings_cosine
+    ON medium.product_embeddings
+    USING hnsw (embedding vector_cosine_ops)
+;
