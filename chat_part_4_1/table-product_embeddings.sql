@@ -1,3 +1,5 @@
+-- See Part 3: https://medium.com/@rodrigo.lopez.gatica/build-an-ai-chatbot-with-java-part-3-using-a-persistent-embedding-store-with-postgresql-17-329c03319277
+
 CREATE TABLE IF NOT EXISTS medium.product_embeddings (
     embedding_id UUID PRIMARY KEY,
     embedding VECTOR(1536),
