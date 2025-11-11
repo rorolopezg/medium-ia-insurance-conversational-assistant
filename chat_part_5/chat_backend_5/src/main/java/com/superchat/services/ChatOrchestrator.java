@@ -19,13 +19,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Slf4j
 @RequiredArgsConstructor
+@Service
 public class ChatOrchestrator {
-
-    private final AiBootstrapService aiBootstrapService;                // infra compartida
-    private final AiBuilderService aiBuilderService;      // factoría de agentes por sesión
+    private final AiBuilderService aiBuilderService;      // factoría + infra compartida
     private final SessionState sessionState;
     private final AudienceSearcherService audienceSearcherService;
     private final ProductService productService;
@@ -45,7 +43,8 @@ public class ChatOrchestrator {
             // === Wiring por sesión (memoria independiente por sessionId) ===
             AiAgentsPerSession wiringPerSession = sessionState.getOrCreateWiring(
                     id,
-                    () -> aiBuilderService.buildPerSessionAgents(aiBootstrapService.getChatModel())
+                    // antes: aiBuilderService.buildPerSessionAgents(aiBootstrapService.getChatModel())
+                    () -> aiBuilderService.buildPerSessionAgents()
             );
 
             // === Perfil por sesión ===
@@ -58,10 +57,11 @@ public class ChatOrchestrator {
                     .replace("```", "");
             profile.applyJson(json);
 
-            // Step 5 – Semantic Search (usa infra compartida)
-            EmbeddingModel model = aiBootstrapService.getEmbeddingModel();
-            EmbeddingStore<TextSegment> store = aiBootstrapService.getEmbeddingStore();
-            List<String> candidates = audienceSearcherService.findCandidateProductIds(profile, model, store, 7, 0.78);
+            // Step 5 – Semantic Search (usa infra compartida de AiBuilderService)
+            EmbeddingModel model = aiBuilderService.getEmbeddingModel();
+            EmbeddingStore<TextSegment> store = aiBuilderService.getEmbeddingStore();
+            List<String> candidates = audienceSearcherService
+                    .findCandidateProductIds(profile, model, store, 7, 0.78);
 
             // Step 6 – Build Context (solo candidatos)
             String context = AgentContextBuilder.buildContextForAgent(

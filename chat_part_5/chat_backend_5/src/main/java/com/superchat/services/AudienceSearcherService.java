@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 import static com.superchat.utils.ProductFieldsUtil.*;
 
-@Service
 @Slf4j
+@Service
 public final class AudienceSearcherService {
     private AudienceSearcherService(){}
 

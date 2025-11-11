@@ -13,8 +13,8 @@ import java.util.List;
 
 import static com.superchat.utils.ProductFieldsUtil.*;
 
-@Service
 @Slf4j
+@Service
 public final class ProductIngestionService {
 
     private ProductIngestionService(){}
