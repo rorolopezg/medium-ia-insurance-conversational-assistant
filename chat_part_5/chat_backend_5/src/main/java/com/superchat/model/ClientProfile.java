@@ -191,7 +191,8 @@ public class ClientProfile {
         return """
                Find target audience that matches: age %s (%s), %s, %s, %s, %s, %s, %s. %s, %s.
                Return insurance products whose TARGET AUDIENCE best fits this profile.
-               """.formatted(
+               """
+                .formatted(
                 (age == null || age == 0 ? "unknown" : String.valueOf(age)),
                 ageBand,
                 marital,
@@ -203,6 +204,14 @@ public class ClientProfile {
                 expressionOfInterestInInsurance == null || expressionOfInterestInInsurance.isEmpty() ? "" : insuredInterest,
                 expressionOfInterestInOthersThings == null || expressionOfInterestInOthersThings.isEmpty() ?  "" : othersInterest
         );
+    }
+
+    public Boolean isEnoughDataForRecommendProducts() {
+        return (this.age != null || this.maritalStatus != null ||
+                this.hasChildren != null || this.hasPets != null || this.hasHouses != null ||
+                this.hasApartments != null || this.hasCars != null ||
+                (this.expressionOfInterestInInsurance != null && !this.expressionOfInterestInInsurance.isEmpty()) ||
+                (this.expressionOfInterestInOthersThings != null && !this.expressionOfInterestInOthersThings.isEmpty()));
     }
 
     @Override

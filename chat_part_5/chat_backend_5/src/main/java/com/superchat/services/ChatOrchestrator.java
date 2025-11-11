@@ -34,6 +34,7 @@ public class ChatOrchestrator {
         final String id = msg.getSessionId();
         final String text = msg.getText();
         final String topic = "/topic/chat/" + id;
+        String context;
 
         try {
             // typing
@@ -57,15 +58,22 @@ public class ChatOrchestrator {
                     .replace("```", "");
             profile.applyJson(json);
 
-            // Step 5 – Semantic Search (usa infra compartida de AiBuilderService)
-            EmbeddingModel model = aiBuilderService.getEmbeddingModel();
-            EmbeddingStore<TextSegment> store = aiBuilderService.getEmbeddingStore();
-            List<String> candidates = audienceSearcherService
-                    .findCandidateProductIds(profile, model, store, 7, 0.78);
+            log.info("Updated profile for session {}: {}", id, profile);
 
-            // Step 6 – Build Context (solo candidatos)
-            String context = AgentContextBuilder.buildContextForAgent(
-                    productService.findAllProducts(), candidates);
+            if (profile.isEnoughDataForRecommendProducts()) {
+                // Step 5 – Semantic Search (usa infra compartida de AiBuilderService)
+                EmbeddingModel model = aiBuilderService.getEmbeddingModel();
+                EmbeddingStore<TextSegment> store = aiBuilderService.getEmbeddingStore();
+                List<String> candidates = audienceSearcherService
+                        .findCandidateProductIds(profile, model, store, 7, 0.78);
+
+                // Step 6 – Build Context (solo candidatos)
+                context = AgentContextBuilder.buildContextForAgent(
+                        productService.findAllProducts(), candidates);
+            } else {
+                // Build Context (vacío, aún no hay perfil suficiente)
+                context = "";
+            }
 
             // Step 7 – Chat Agent Response (memoria por sesión)
             IChatAgentA chat = wiringPerSession.getChatAgentA();
