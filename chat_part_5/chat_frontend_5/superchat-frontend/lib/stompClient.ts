@@ -1,8 +1,7 @@
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 
 export type StompCallbacks = {
   onConnect?: () => void;
-  onMessage?: (msg: IMessage) => void;
   onDisconnect?: () => void;
   onError?: (e: any) => void;
 };
@@ -16,8 +15,7 @@ export function createStompClient(url: string, cbs: StompCallbacks) {
     onConnect: () => cbs.onConnect?.(),
     onStompError: frame => cbs.onError?.(frame),
     onWebSocketClose: () => cbs.onDisconnect?.(),
-    debug: () => {}, // quita logs
+    debug: () => {}, // silenciar
   });
-
   return client;
 }

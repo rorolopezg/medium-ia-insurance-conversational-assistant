@@ -1,4 +1,4 @@
-package com.superchat.services;
+package com.superchat.utils;
 
 // Constants related to product fields. Used during the ingestion process, specifically when mapping
 // the product metadata.

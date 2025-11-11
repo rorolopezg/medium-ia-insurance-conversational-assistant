@@ -23,6 +23,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  color: #1a1a1a; /* equivalente a gray-900 */
 }
 
 .prose ul { list-style-type: disc !important; }

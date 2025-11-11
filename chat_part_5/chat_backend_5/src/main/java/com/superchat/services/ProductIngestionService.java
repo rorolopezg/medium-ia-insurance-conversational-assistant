@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.superchat.services.ProductFieldsUtil.*;
+import static com.superchat.utils.ProductFieldsUtil.*;
 
 @Service
 @Slf4j

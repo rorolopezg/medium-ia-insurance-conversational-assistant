@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.superchat.services.ProductFieldsUtil.*;
+import static com.superchat.utils.ProductFieldsUtil.*;
 
-@Slf4j
 @Service
+@Slf4j
 public final class AudienceSearcherService {
     private AudienceSearcherService(){}
 
